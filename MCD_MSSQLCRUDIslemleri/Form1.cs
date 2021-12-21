@@ -89,7 +89,7 @@ namespace MCD_MSSQLCRUDIslemleri
         private void btnGuncelle_Click(object sender, EventArgs e)
         {
             conn.Open();
-            string updateSorgu = "update Products set ProductName = @name, UnitPrice = @uprice ,UnitInStock = @Stock where ProductID =@pID";
+            string updateSorgu = "update Products set ProductName = @name, UnitPrice = @uprice ,UnitsInStock = @Stock where ProductID =@pID";
             cmd = new SqlCommand(updateSorgu, conn);
             cmd.Parameters.AddWithValue("@pID", id);
             cmd.Parameters.AddWithValue("@name", txtAd.Text);
@@ -107,6 +107,18 @@ namespace MCD_MSSQLCRUDIslemleri
             txtAd.Text = dataGridView1.CurrentRow.Cells[1].Value.ToString();
             txtFiyat.Text = dataGridView1.CurrentRow.Cells[5].Value.ToString();
             txtStok.Text = dataGridView1.CurrentRow.Cells[6].Value.ToString();
+        }
+
+        private void btnSil_Click(object sender, EventArgs e)
+        {
+            conn.Open();
+            string deleteSorgu = "delete from Products where ProductID = @pID";
+            cmd = new SqlCommand(deleteSorgu, conn);
+            cmd.Parameters.AddWithValue("@pID", id);
+            cmd.ExecuteNonQuery();
+            MessageBox.Show("Silindi..");
+            UrunGetir("Select * from Products");
+            conn.Close();
         }
     }
 }

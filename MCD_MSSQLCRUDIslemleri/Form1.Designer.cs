@@ -120,6 +120,7 @@ namespace MCD_MSSQLCRUDIslemleri
             this.btnSil.TabIndex = 1;
             this.btnSil.Text = "SİL";
             this.btnSil.UseVisualStyleBackColor = true;
+            this.btnSil.Click += new System.EventHandler(this.btnSil_Click);
             // 
             // btnUrunGetir
             // 
