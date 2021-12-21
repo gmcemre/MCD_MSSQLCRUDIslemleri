@@ -83,5 +83,30 @@ namespace MCD_MSSQLCRUDIslemleri
                 MessageBox.Show(ex.ToString());
             }
         }
+
+
+        int id;
+        private void btnGuncelle_Click(object sender, EventArgs e)
+        {
+            conn.Open();
+            string updateSorgu = "update Products set ProductName = @name, UnitPrice = @uprice ,UnitInStock = @Stock where ProductID =@pID";
+            cmd = new SqlCommand(updateSorgu, conn);
+            cmd.Parameters.AddWithValue("@pID", id);
+            cmd.Parameters.AddWithValue("@name", txtAd.Text);
+            cmd.Parameters.AddWithValue("@uprice", txtFiyat.Text);
+            cmd.Parameters.AddWithValue("@Stock", txtStok.Text);
+            cmd.ExecuteNonQuery();
+            MessageBox.Show("Güncellendi..");
+            UrunGetir("select * from Products");
+            conn.Close();
+        }
+
+        private void dataGridView1_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            id = Convert.ToInt32(dataGridView1.CurrentRow.Cells[0].Value);
+            txtAd.Text = dataGridView1.CurrentRow.Cells[1].Value.ToString();
+            txtFiyat.Text = dataGridView1.CurrentRow.Cells[5].Value.ToString();
+            txtStok.Text = dataGridView1.CurrentRow.Cells[6].Value.ToString();
+        }
     }
 }
